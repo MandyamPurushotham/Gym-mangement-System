@@ -1,0 +1,220 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+.home
+{
+    min-height: 100vh;
+    background-image:url("images/3.webp");
+    background-size: cover;
+    background-repeat: no-repeat; 
+    
+    
+    
+}
+.home::before{
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+   
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s ease-out;
+}
+.home.show::before{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+nav{
+    
+    height: 100px;
+    width: auto;
+    background-color: rgb(46, 231, 83);
+    color: #eae5e5;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+
+}
+.but{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+
+  
+}
+.but div{
+    margin: 5px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: aqua;
+    color: #12151e;
+}
+.box
+{   position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%)scale(1.2);
+    z-index: 101;
+    padding: 20px 30px;
+    width: 300px;
+    height: auto;
+    backdrop-filter: blur(50px);
+    border-radius: 5px;
+    background: rgba(49, 49, 49, .2);
+    border: 1px solid rgba(255, 255, 255, .5);
+    opacity: 0;
+    pointer-events: none; 
+    transition: all 0.4s ease-out;
+}
+.box .form
+{
+    padding: 10px 20px;
+
+}
+.box .form h2
+{   
+    padding-bottom: 20px;
+    text-align: center;
+    color: #fff;
+}
+.box .form form
+{
+    margin-top: 50px;
+    align-items: center;
+}
+.box .form form .inputbox input
+{
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    background: none;
+    border-bottom: 1px solid #12151e;
+    margin-bottom: 30px;
+    color: #f4eeee;
+}
+.box .form form .inputbox span
+{
+    position: absolute;
+    transform: translateY(-80px);
+    font-size: 14px;
+    color: #f6f9f6;
+}
+.box .form form .sub
+{
+    padding: 10px 10px;
+    width: 100%;
+    color: #eae5e5;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background: #0cc0df;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+a{
+    text-decoration: none;
+}
+.txt{
+    padding: 10px 10px;
+    color: #eae5e5;
+}
+.form_close{
+    height: 15px ;
+    width: 15px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    opacity: 0.7;
+    cursor: pointer;
+}
+.home.show .box{
+opacity: 1;
+transform: translate(-50%,-50%)scale(1);
+pointer-events: auto;
+} 
+.admin_sign_up{
+  display: none;  
+}  
+.box.active .admin_sign_up{
+    display: block;
+}
+.box.active .admin_log_in{
+    display: none;
+}
+.Admin{
+    display: flex;
+    align-items: center;
+    justify-content: center;   
+    padding: 10px;  
+    gap: 5px;
+}
+.button{
+    background-color: #eae5e5;
+    color: #12151e;
+    padding: 10px;
+    font-size: large;
+    border:5px solid green;
+    border-radius: 10px;
+    width: 200px;
+}
+.member_sign_up{
+    display: none;  
+  }  
+.box.active .member_sign_up{
+      display: block;
+  }
+.box.active .member_log_in{
+      display: none;
+  }
+
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    justify-items: center;
+    
+  }
+  
+  .admin-btn {
+    padding: 15px 30px;
+    font-size: 1rem;
+    background-color: #1eec25;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 200px;
+    border:5px solid blueviolet;
+  }
+  
+  .admin-btn:hover {
+    background-color: #1c4b1e;
+  }
+  .txt{
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    color: aqua;
+
+  }
+  .main{
+    justify-items: center;
+    padding: 10px;
+    color: #0cc0df;
+  }
+  .txt{
+    text-align: justify;
+    padding-left: 50px;
+    font-size: larger;
+  }

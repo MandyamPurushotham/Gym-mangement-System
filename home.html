@@ -1,0 +1,176 @@
+<!-- admin-dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="home">
+    <nav>
+        <div><img src="images/download.jpeg" alt="GYM" height="90px"></div>
+        <div><h2>GYM-Management-System</h2></div>
+       
+        
+     </nav>
+
+
+    <div class="main">
+        <h2>Welcome, Admin!</h2>
+        <div class="buttons">
+            <button id="addMemberBtn" class="admin-btn">Add Member</button>
+            <button id="updateDeleteMemberBtn" class="admin-btn">Update/Delete Members</button>
+            <button id="createBillBtn" class="admin-btn">Create Bills</button>
+            <button id="assignFeePackageBtn" class="admin-btn">Assign Fee Package</button>
+            <button id="assignNotificationBtn" class="admin-btn">Assign Notification</button>
+            <button id="reportExportBtn" class="admin-btn">Export Report</button>
+            <button id="supplementStoreBtn" class="admin-btn">Supplement Store</button>
+            <button id="dietDetailsBtn" class="admin-btn">Diet Details</button>
+          </div>
+    </div>
+    
+    <script src="firebase.js"></script>
+    <script>
+  
+  const addMember = () => {
+    const username = prompt("Enter member name:");
+    const email=prompt("Enter Email")
+  const phoneNumber = prompt("Enter member contact number:");
+  const  Password = prompt("Enter membership type (e.g., Gold, Silver):");
+
+  db.collection("members").add({
+    username: username,
+    email: email,
+    phoneNumber: phoneNumber,
+    Password:  Password,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  })
+  .then(() => {
+    alert("Member added successfully!");
+  })
+  .catch(error => {
+    console.error("Error adding member: ", error);
+    alert("Error adding member.");
+  }); 
+  };
+  
+  const updateDeleteMembers = () => {
+    const memberId = prompt("Enter member ID to update/delete:");
+
+
+  const action = prompt("Do you want to Update or Delete the member? (Update/Delete)").toLowerCase();
+
+  if (action === "update") {
+    const newName = prompt("Enter new member name:");
+    const newContact = prompt("Enter new contact number:");
+    const newMembershipType = prompt("Enter new membership type:");
+    
+    console.log(`Member ID: ${memberId} updated to ${newName}, ${newContact}, ${newMembershipType}`);
+    alert("Member updated successfully!");
+  } else if (action === "delete") {
+    console.log(`Member with ID: ${memberId} deleted.`);
+    alert("Member deleted successfully!");
+  } else {
+    alert("Invalid action. Please choose 'Update' or 'Delete'.");
+  }
+  };
+  
+ 
+  const createBills = () => {
+    const memberId = prompt("Enter member ID for bill creation:");
+  const amount = prompt("Enter the bill amount:");
+  const dueDate = prompt("Enter the due date (YYYY-MM-DD):");
+
+  // Normally, you would store the bill in Firebase
+  console.log(`Bill created for Member ID: ${memberId} - Amount: ${amount}, Due Date: ${dueDate}`);
+  
+  alert("Bill created successfully!");
+  };
+  
+  const assignFeePackage = () => {
+    const memberId = prompt("Enter member ID:");
+  const feePackage = prompt("Enter fee package (e.g., Gold, Silver):");
+
+  // Store the fee package in Firebase or update the database
+  console.log(`Assigned ${feePackage} to Member ID: ${memberId}`);
+  
+  alert(`${feePackage} package assigned successfully to member.`);
+  };
+  
+  const assignNotification = () => {
+    const memberId = prompt("Enter member ID to send notification:");
+  const notificationMessage = prompt("Enter the notification message:");
+
+  // Normally, this would send a notification to the member via Firebase
+  console.log(`Notification sent to Member ID: ${memberId} - Message: ${notificationMessage}`);
+  
+  alert("Notification sent successfully!");
+  };
+  
+  const exportReport = () => {
+    alert("Export Report button clicked");
+  };
+  
+  const supplementStore = () => {
+    const action = prompt("Enter action for Supplement Store (Add/Update/Delete/View):").toLowerCase();
+
+if (action === "add") {
+  const supplementName = prompt("Enter supplement name:");
+  const price = prompt("Enter supplement price:");
+  const quantity = prompt("Enter supplement quantity:");
+
+  console.log(`Added Supplement: ${supplementName}, Price: ${price}, Quantity: ${quantity}`);
+  alert("Supplement added successfully!");
+} else if (action === "update") {
+  const supplementId = prompt("Enter supplement ID to update:");
+  const newPrice = prompt("Enter new price:");
+  const newQuantity = prompt("Enter new quantity:");
+
+  console.log(`Supplement ID: ${supplementId} updated to Price: ${newPrice}, Quantity: ${newQuantity}`);
+  alert("Supplement updated successfully!");
+} else if (action === "delete") {
+  const supplementId = prompt("Enter supplement ID to delete:");
+  console.log(`Supplement ID: ${supplementId} deleted.`);
+  alert("Supplement deleted successfully!");
+} else if (action === "view") {
+  console.log("View all supplements in the store.");
+  alert("Viewing all supplements.");
+} else {
+  alert("Invalid action.");
+}
+  };
+  
+  const dietDetails = () => {
+    const memberId = prompt("Enter member ID to manage diet:");
+  const dietAction = prompt("Enter action (Add/Update/View):").toLowerCase();
+
+  if (dietAction === "add") {
+    const dietPlan = prompt("Enter diet plan for the member:");
+    console.log(`Added diet plan for Member ID: ${memberId} - Plan: ${dietPlan}`);
+    alert("Diet plan added successfully!");
+  } else if (dietAction === "update") {
+    const newDietPlan = prompt("Enter new diet plan:");
+    console.log(`Updated diet plan for Member ID: ${memberId} - New Plan: ${newDietPlan}`);
+    alert("Diet plan updated successfully!");
+  } else if (dietAction === "view") {
+    console.log("Viewing diet plan for Member ID: " + memberId);
+    alert("Viewing diet plan.");
+  } else {
+    alert("Invalid action.");
+  }
+  };
+  
+  // Attach event listeners to the buttons
+  document.getElementById("addMemberBtn").addEventListener("click", addMember);
+  document.getElementById("updateDeleteMemberBtn").addEventListener("click", updateDeleteMembers);
+  document.getElementById("createBillBtn").addEventListener("click", createBills);
+  document.getElementById("assignFeePackageBtn").addEventListener("click", assignFeePackage);
+  document.getElementById("assignNotificationBtn").addEventListener("click", assignNotification);
+  document.getElementById("reportExportBtn").addEventListener("click", exportReport);
+  document.getElementById("supplementStoreBtn").addEventListener("click", supplementStore);
+  document.getElementById("dietDetailsBtn").addEventListener("click", dietDetails);
+  
+    </script>
+</body>
+</html>

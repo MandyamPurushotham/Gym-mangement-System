@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin</title>
+        <link rel="stylesheet" href="style.css">
+            
+    </head>
+    <body >
+     <nav>
+        <div><img src="images/download.jpeg" alt="GYM" height="90px"></div>
+        <div><h2>GYM-Management-System</h2></div>
+              
+     </nav>
+
+
+     
+        <!-- Home section -->
+       <section class="home">
+     <div class="txt">
+        <h2>Welcome to Admin......</h2>
+     </div>
+
+
+       <!-- Admin login -->
+<div class="box">
+    <i><img class="form_close" src="images/image.png" alt=""></i>
+    <div class="form admin_log_in">
+        <form id="loginForm">
+            <h2>Admin Login </h2>
+
+            <div class="inputbox">
+                <input type="text" value="" id="login-username" required>
+                <span>username</span>
+            </div>
+
+            <div class="inputbox">
+                <input type="email" value="" id="login-email" required>
+                <span>E-mail</span>
+            </div>
+            <div class="inputbox">
+                <input type="password" value="" id="login-password" required>
+                <span>Password</span>
+            </div>
+            <input type="submit" value="Login" class="sub" id="submit2">
+            <div class="txt">New user <a href="#" id="admin_signUp">SignUp</a></div>
+        </form>
+    </div>
+
+    <!-- Admin signup -->
+    <div class="form admin_sign_up">                   
+        <form id="signupForm">
+            <h2>Admin SignIn </h2>
+            <div class="inputbox">
+                <input type="text" value="" id="signup-username" required>
+                <span>username</span>
+            </div>
+
+            <div class="inputbox">
+                <input type="email" value="" id="signup-email" required>
+                <span>E-mail</span>
+            </div>
+            <div class="inputbox">
+                <input type="text" value="" id="signup-phone" required>
+                <span>Phone number</span>
+            </div>
+            <div class="inputbox">
+                <input type="password" value="" id="signup-password" required>
+                <span>Password</span>
+            </div>
+            <input type="submit" value="SignUp" class="sub" id="submit1">
+            Already have an account?<a href="#" id="admin_Login">LogIn</a>
+        </form>
+    </div>
+</div>
+
+
+           
+            <div class="Admin">
+                <div id="admin_form_open" class="button">Admin Login</div>
+                
+            </div>
+        </section>
+
+        <script src="app.js"></script>
+        <script src="firebase.js"></script>
+        
+        <script type="Module">
+            
+                // Import the functions you need from the SDKs you need
+                import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+                import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+                import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+
+        
+                    
+                // Initialize Firebase
+                const app = initializeApp(firebaseConfig);
+                const auth =getAuth(app);
+
+                //get ref to database services
+                const db = getDatabase(app);
+
+                const submit1 = document.getElementById("submit1").addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    set(ref(db, 'admin/' + document.getElementById("signup-username").value),
+    {
+        username: document.getElementById("signup-username").value,
+        email: document.getElementById("signup-email").value,
+        phoneNumber: document.getElementById("signup-phone").value,
+        Password: document.getElementById("signup-password").value
+    });
+    
+    const email = document.getElementById("signup-email").value;
+    const password = document.getElementById("signup-password").value;
+    
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            alert("Account created successfully!");
+            console.log("User ID: " + user.uid);
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert("Error: " + errorMessage);
+            console.log("Error Code: " + errorCode + ", Message: " + errorMessage);
+        });
+});
+
+const submit2 = document.getElementById("submit2").addEventListener('click', function(e) {
+    e.preventDefault();
+
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            alert("Login Successful!");
+            window.location.href = "home.html";
+            console.log("User ID: " + user.uid);
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert("Error: " + errorMessage);
+            console.log("Error Code: " + errorCode + ", Message: " + errorMessage);
+        });
+});
+
+        </script>
+    </body>
+</html>
